@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
+import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from './app.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { NearbyShopsComponent } from './nearby-shops/nearby-shops.component';
-import { MyPreferredShopsComponent } from './my-preferred-shops/my-preferred-shops.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { NearbyShopsComponent } from "./components/nearby-shops/nearby-shops.component";
+import { MyPreferredShopsComponent } from "./components/my-preferred-shops/my-preferred-shops.component";
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -13,12 +13,15 @@ import { MyPreferredShopsComponent } from './my-preferred-shops/my-preferred-sho
     AppComponent,
     MainPageComponent,
     NearbyShopsComponent,
-    MyPreferredShopsComponent
+    MyPreferredShopsComponent,
+    NavbarComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
