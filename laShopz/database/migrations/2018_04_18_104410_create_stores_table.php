@@ -15,12 +15,13 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('storeid');
+            $table->string('storeid');
             $table->string('name');
             $table->string('address');
             $table->string('latitude');
             $table->string('longitude');
-            $table->string('like');
+            $table->string('photo_reference');
+            $table->string('liked');
             $table->timestamps();
         });
     }
