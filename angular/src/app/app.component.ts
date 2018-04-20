@@ -1,7 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Http, Headers } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { LaravelService } from "./services/laravel.service"
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @Injectable()
 @Component({
@@ -11,39 +10,35 @@ import 'rxjs/add/operator/toPromise';
 })
 export class AppComponent implements OnInit
 {
-  constructor(private _http: Http) { }
-
-  private headers = new Headers({'Content-Type': 'application/json'});
   title = 'Shopz | Laravel Angular 4 App';
   nearbyStores;
 
+  constructor(private laravel_service: LaravelService) { }
+
   ngOnInit()
   {
+    // variable to store the users current location using the geolocation
     var current_position;
-
    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) =>
       {
         console.log(position);
         current_position = position;
-
         var currentLat = current_position.coords.latitude;
         var currentLong = current_position.coords.longitude;
-
-        this._http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + currentLat +',' + currentLong + '&radius=2000&type=store&key=AIzaSyDVXB82GslAi4XRpIkHwrE9P8HQ8HwD7JE').subscribe(data =>
-        {
-          var json = JSON.parse(data['_body']);
-          this.nearbyStores = json.results;
-          console.log(this.nearbyStores);
-          return this._http.post('http://shums.dev/laravel_php/shopz-challenge/laShopz/public/addStores', this.nearbyStores, {headers: this.headers})
-          .toPromise().then(res => res.json()).catch(this.handleError);
-        });
+        // get nearby stores from the google maps api
+        this.laravel_service.getNearbyStores(currentLat, currentLong);
       });
     } else {
+      // return error if else
       alert("Geolocation is not supported by this browser.");
     }
+
+    MainPageComponent.shops = this.laravel_service.getShops();
+    console.log(MainPageComponent.shops);
   }
 
+  // handle errors functions
   private handleError(error: any): Promise<any>
   {
     console.error('An error occurred', error);

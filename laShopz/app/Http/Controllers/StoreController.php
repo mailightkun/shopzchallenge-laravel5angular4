@@ -9,6 +9,29 @@ use App\Store;
 
 class StoreController extends Controller
 {
+    // saves a store to the database
+    function saveStore($item, $photo_reference)
+    {
+        $store = new Store([
+            'storeid' =>  $item['place_id'],
+            'name' =>  $item['name'],
+            'address' =>$item['vicinity'],
+            'latitude' =>$item['geometry']['location']['lat'],
+            'longitude' => $item['geometry']['location']['lng'],
+            'photo_reference' => $photo_reference,
+            'liked' => '0'
+            ]);
+        $store->save();
+    }
+
+    // function to get all stores from the database
+    public function getStores(Response $response)
+    {
+        $stores = Store::all();
+        return \Response::json($stores);
+    }
+
+    // function to save and store scanned nearby stores
     public function storeData(Request $request)
     {
         $place_id = "";
@@ -17,100 +40,30 @@ class StoreController extends Controller
 
         foreach($data as $item)
         {
-            if(empty($item['place_id']) || empty($item['photos']['photo_reference']) )
+            try
             {
-                $item['place_id'] = $place_id;
-                $item['photos']['photo_reference'] = $photo_reference;
-            }
+                if(empty($item['photos'][0]['photo_reference']))
+                $photo_reference = 'null';
             else
-            {
-                $place_id = $item['place_id'];
                 $photo_reference = $item['photos'][0]['photo_reference'];
             }
+            catch(Exception $ex)
+            {
+                $photo_reference = 'undefined';
+            }
 
-            $store = new Store([
-                'storeid' =>  $place_id,
-                'name' =>  $item['name'],
-                'address' =>$item['vicinity'],
-                'latitude' =>$item['geometry']['location']['lat'],
-                'longitude' => $item['geometry']['location']['lng'],
-                'photo_reference' => $photo_reference,
-                'liked' => '0'
-            ]);
-            $store->save();
+            $stores__ = Store::all();
+
+            if(!$stores__ == '[]')
+            {
+                foreach(Store::all() as $_store_)
+                {
+                    if($_store_->storeid != $item['place_id'])
+                        $this->saveStore($item, $photo_reference);
+                    else break;
+                }
+            }
+            else $this->saveStore($item, $photo_reference);
         }
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) { }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

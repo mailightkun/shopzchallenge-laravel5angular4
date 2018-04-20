@@ -8,6 +8,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { NearbyShopsComponent } from "./components/nearby-shops/nearby-shops.component";
 import { MyPreferredShopsComponent } from "./components/my-preferred-shops/my-preferred-shops.component";
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LaravelService } from "./services/laravel.service"
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LaravelService],
   bootstrap: [AppComponent]
 })
 
