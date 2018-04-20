@@ -10,4 +10,5 @@ export class Store
     liked: string;
     created_at: DateTimeFormat;
     updated_at: DateTimeFormat;
+    distance: string;
 }

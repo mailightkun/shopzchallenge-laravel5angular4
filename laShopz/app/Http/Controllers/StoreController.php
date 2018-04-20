@@ -27,7 +27,8 @@ class StoreController extends Controller
     // function to get all stores from the database
     public function getStores(Response $response)
     {
-        $stores = Store::all();
+        $stores = \DB::select("SELECT *, ( 3959 * acos( cos( radians(37) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(-122) ) + sin( radians(37) ) * sin( radians( latitude ) ) ) ) AS distance FROM stores WHERE liked != 2 ORDER BY distance");
+        // $stores = Store::all();
         return \Response::json($stores);
     }
 
