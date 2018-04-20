@@ -13,7 +13,7 @@ class StoreController extends Controller
     function saveStore($item, $photo_reference)
     {
         $store = new Store([
-            'storeid' =>  $item['place_id'],
+            'storeid' =>  $item['id'],
             'name' =>  $item['name'],
             'address' =>$item['vicinity'],
             'latitude' =>$item['geometry']['location']['lat'],
@@ -34,6 +34,7 @@ class StoreController extends Controller
     // function to save and store scanned nearby stores
     public function storeData(Request $request)
     {
+        // variables ;
         $place_id = "";
         $photo_reference = "";
         $data = $request->json()->all();
@@ -42,6 +43,7 @@ class StoreController extends Controller
         {
             try
             {
+                // some stores don't have photos so I set the variable to null, so that I check it later
                 if(empty($item['photos'][0]['photo_reference']))
                 $photo_reference = 'null';
             else
@@ -52,18 +54,8 @@ class StoreController extends Controller
                 $photo_reference = 'undefined';
             }
 
-            $stores__ = Store::all();
-
-            if(!$stores__ == '[]')
-            {
-                foreach(Store::all() as $_store_)
-                {
-                    if($_store_->storeid != $item['place_id'])
-                        $this->saveStore($item, $photo_reference);
-                    else break;
-                }
-            }
-            else $this->saveStore($item, $photo_reference);
+            // add the shop to the database
+            try { $this->saveStore($item, $photo_reference); } catch(Exception $ex) { }
         }
     }
 }

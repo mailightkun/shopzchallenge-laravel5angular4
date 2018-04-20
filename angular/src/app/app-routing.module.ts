@@ -5,6 +5,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { NearbyShopsComponent } from "./components/nearby-shops/nearby-shops.component";
 import { MyPreferredShopsComponent } from "./components/my-preferred-shops/my-preferred-shops.component";
 
+// main routing system
 const appRoutes: Routes = [
   { path: "mainPage", component: MainPageComponent },
   { path: "nearbyShops", component: NearbyShopsComponent },

@@ -23,6 +23,8 @@ class CreateStoresTable extends Migration
             $table->string('photo_reference');
             $table->string('liked');
             $table->timestamps();
+
+            $table->unique('storeid');
         });
     }
 

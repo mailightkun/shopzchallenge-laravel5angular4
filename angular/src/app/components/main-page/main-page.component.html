@@ -1,6 +1,24 @@
-<p>
-  main-page works!
-</p>
-<div *ngFor="let shop of shops">
-  <p> {{ shops?.id}} </p>
+<div class="row">
+
+  <div class="col-lg-4 col-md-6 mb-4" *ngFor="let shop of shops">
+    <div class="card h-100">
+      <a href="#">
+        <img *ngIf="shop?.photo_reference != 'null' " height="200px" width="400px" class="card-img-top" src="https://maps.googleapis.com/maps/api/place/photo?maxheight=400&maxwidth=700&photoreference={{ shop?.photo_reference }}&key=AIzaSyA4YXnX2QN4enqTUEqYUYDm6Co1aXXqhyE" alt="">
+        <img *ngIf="shop?.photo_reference == 'null' " class="card-img-top" src="https://i.imgur.com/eqtlfXv.jpg" alt="">
+      </a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">{{ shop?.name }}</a>
+        </h4>
+        <h5>{{ shop?.id }}</h5>
+        <p class="card-text">{{ shop?.address }}</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          <button class="btn btn-danger">Dislike</button>
+          <button class="btn btn-info">Like</button></small>
+      </div>
+    </div>
+  </div>
+
 </div>

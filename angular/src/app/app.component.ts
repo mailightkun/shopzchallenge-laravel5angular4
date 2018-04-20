@@ -33,9 +33,6 @@ export class AppComponent implements OnInit
       // return error if else
       alert("Geolocation is not supported by this browser.");
     }
-
-    MainPageComponent.shops = this.laravel_service.getShops();
-    console.log(MainPageComponent.shops);
   }
 
   // handle errors functions
