@@ -16,6 +16,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // store routes
+
 Route::resource('store', 'StoreController');
-Route::post('addStores', 'StoreController@storeData');
-Route::get('getStores', 'StoreController@getStores');
+Route::post('add-stores', 'StoreController@storeData');
+Route::post('edit-shop-status', 'StoreController@editShopLikedStatus');
+Route::get('shops', 'StoreController@getStores');
+Route::get('liked-shops', 'StoreController@getPreferredStores');

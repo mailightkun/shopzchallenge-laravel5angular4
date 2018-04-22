@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LaravelService } from "../../services/laravel.service"
 import { Store } from '../../store';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-main-page',
@@ -14,9 +15,18 @@ export class MainPageComponent implements OnInit
 
   ngOnInit()
   {
-    console.log('database shops : ' + this.laravel_service.stores);
     var json = JSON.parse(this.laravel_service.stores['_body']);
     this.shops = json;
-    console.log(json);
+    console.log(json); // test
+
+    // jquery code to hide shop efter being liked or disliked
+    $(document).ready(function()
+    {
+      $("button").click(function()
+      {
+        var shop = $(this).parents("#shop");
+        shop.fadeOut(1000);
+      });
+    });
   }
 }
