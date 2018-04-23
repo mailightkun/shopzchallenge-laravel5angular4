@@ -7,7 +7,7 @@ This app is part of a coding challenge by [Hidden Founders](https://github.com/h
 angular : ``` npm install ```  
 laravel : ``` composer install ```  
 then run angular with ``` ng serve ```  
-In the angular services folder please make sure to edit the backend laravel url variable: ``` laravel_service ``` with your own
+In the angular services folder please make sure to edit the laravel backend service ``` laravel_service ``` variable ``` server ``` with your own!
 
 # Screenshot (main-page)
 ![alt text](https://i.imgur.com/4Ux5KuH.png)
