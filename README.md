@@ -1,6 +1,7 @@
 # shopzchallenge-laravel5angular4
 This project displays nearby shops using the laravel 5 php framework as the backend and angular 4 as the frontend!  
-This app is part of a coding challenge by [Hidden Founders](https://github.com/hiddenfounders) info about the challenge can be found here : [Coding Challenge](https://github.com/hiddenfounders/web-coding-challenge/blob/master/coding-challenge.md)
+This app is part of a coding challenge by [Hidden Founders](https://github.com/hiddenfounders) info about the challenge can be found here : [Coding Challenge](https://github.com/hiddenfounders/web-coding-challenge/blob/master/coding-challenge.md)  
+(still in developpement ...)
 
 # installation
 angular : ``` npm install ```  
